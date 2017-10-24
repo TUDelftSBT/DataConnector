@@ -18,4 +18,12 @@ public class Data {
     public double getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+                "timestamp=" + timestamp +
+                ", value=" + value +
+                '}';
+    }
 }

@@ -8,4 +8,12 @@ public class SignalUpdate {
         this.signal = signal;
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "SignalUpdate{" +
+                "signal='" + signal + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
