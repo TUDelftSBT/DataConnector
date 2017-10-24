@@ -5,11 +5,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import nl.solarboatteam.DataConnector.kafka.serialization.{JsonDeserializer, JsonSerializer}
-import nl.solarboatteam.DataConnector.DataConnector
-import nl.solarboatteam.DataConnector.models.data.{Data, SignalUpdate}
-import org.apache.kafka.clients.consumer.{ConsumerRecord, KafkaConsumer}
 import org.apache.kafka.clients.consumer.internals.NoOpConsumerRebalanceListener
+import org.apache.kafka.clients.consumer.{ConsumerRecord, KafkaConsumer}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.kafka.common.serialization.{Deserializer, Serializer, StringDeserializer, StringSerializer}
 import org.slf4j.{Logger, LoggerFactory}
