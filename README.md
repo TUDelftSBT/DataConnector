@@ -10,7 +10,7 @@ Map<String,Object> config = new HashMap<String,Object>();
 config.put("bootstrap.servers", "localhost:9092");
 config.put("group.id", "application-name");
 
-DataConnector connector = ConnectorFactory.createDataConnector(config, "boat_2016");
+DataConnector connector = ConnectorFactory.createDataConnector(config, "boat_2016", Connection_Mode.RECEIVE_DATA_FROM_CLIENT);
 //send test message
 connector.send(new SignalUpdate("test", new Data(Instant.now(), 0.99999)));
 
