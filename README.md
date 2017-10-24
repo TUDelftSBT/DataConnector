@@ -1,5 +1,4 @@
-[![Release](https://jitpack.io/v/TUDelftSBT/DataConnector.svg)]
-(https://jitpack.io/#TUDelftSBT/DataConnector)
+[![Release](https://jitpack.io/v/TUDelftSBT/DataConnector.svg)](https://jitpack.io/#TUDelftSBT/DataConnector)
 
 # Usage
 
