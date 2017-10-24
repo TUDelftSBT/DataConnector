@@ -11,7 +11,10 @@ config.put("bootstrap.servers", "localhost:9092");
 config.put("group.id", "application-name");
 
 DataConnector connector = ConnectorFactory.createDataConnector(config, "boat_2016");
+//send test message
 connector.send(new SignalUpdate("test", new Data(Instant.now(), 0.99999)));
+
+//get gps updates
 List signals = new ArrayList<String>();
 signals.add("gps");
 
