@@ -10,4 +10,7 @@ libraryDependencies += "com.typesafe.play" % "play-json_2.12" % "2.6.6"
 
 libraryDependencies += "io.reactivex.rxjava2" % "rxjava" % "2.1.5"
 
+libraryDependencies += "org.slf4j" % "slf4j-api" % "1.7.25"
+
+
 javacOptions in (Compile,doc) ++= Seq("-notimestamp", "-linksource")
