@@ -6,10 +6,10 @@ import java.util
 import io.reactivex.Observable
 import nl.solarboatteam.DataConnector.DataConnector
 import nl.solarboatteam.DataConnector.kafka.serialization.{JsonDeserializer, JsonSerializer}
+import nl.solarboatteam.DataConnector.models.ConnectionMode
 import nl.solarboatteam.DataConnector.models.data.{Data, SignalUpdate}
 import play.api.libs.json.{Format, __}
 import play.api.libs.functional.syntax._
-
 
 import scala.collection.JavaConverters._
 
@@ -19,7 +19,7 @@ import scala.collection.JavaConverters._
   * @param connectConfig the connection config
   * @param client the client to subscribe to e.g. boat_2017
   */
-class KafkaDataConnector(private val connectConfig : util.Map[String, Object], private val client : String) extends DataConnector {
+class KafkaDataConnector(private val connectConfig : util.Map[String, Object], private val client : String, mode: ConnectionMode) extends DataConnector {
 
   // play json scala magic :)
   // used by the (de)serializer
@@ -29,8 +29,9 @@ class KafkaDataConnector(private val connectConfig : util.Map[String, Object], p
 
     )((timestamp: Instant, value: Double)=> new Data(timestamp, value), data => (data.getTimestamp,data.getValue))
 
-  private val fromTopic = TopicHelper.getFromJsonTopic(client)
-  private val toTopic = TopicHelper.getToJsonTopic(client)
+  private val fromTopic = if (mode == ConnectionMode.RECEIVE_DATA_FROM_CLIENT) TopicHelper.getFromJsonTopic(client) else TopicHelper.getToJsonTopic(client)
+  private val toTopic = if (mode == ConnectionMode.RECEIVE_DATA_FROM_CLIENT) TopicHelper.getToJsonTopic(client) else TopicHelper.getFromJsonTopic(client)
+
 
   private val kafkaConnector = new KafkaConnector[Data](connectConfig, client, new JsonSerializer[Data](), new JsonDeserializer[Data](), fromTopic, toTopic)
   override def start(): Unit = kafkaConnector.start()

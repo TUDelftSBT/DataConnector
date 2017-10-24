@@ -34,8 +34,7 @@ class KafkaConnector[V](private val connectConfig: util.Map[String, Object], pri
     thread = new Thread(this)
     thread.start()
   }
-
-
+  
   def getObservable: Observable[ConsumerRecord[String, V]] = {
     subject
   }
