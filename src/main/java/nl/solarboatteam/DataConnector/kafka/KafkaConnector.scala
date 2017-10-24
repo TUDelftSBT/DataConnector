@@ -12,10 +12,14 @@ import org.apache.kafka.clients.consumer.{ConsumerRecord, KafkaConsumer}
 import org.apache.kafka.clients.consumer.internals.NoOpConsumerRebalanceListener
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.kafka.common.serialization.{Deserializer, Serializer, StringDeserializer, StringSerializer}
+import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConverters._
 
 class KafkaConnector[V](private val connectConfig: util.Map[String, Object], private val client: String, serializer: Serializer[V], deserializer: Deserializer[V], private val fromTopic: String, private val toTopic: String) extends Runnable {
+
+  val LOG: Logger = LoggerFactory.getLogger(classOf[KafkaConnector[V]])
+
   private val consumer = new KafkaConsumer[String, V](connectConfig, new StringDeserializer, deserializer)
   private val producer = new KafkaProducer[String, V](connectConfig, new StringSerializer, serializer)
   private val subject = PublishSubject.create[ConsumerRecord[String, V]]()
@@ -30,7 +34,7 @@ class KafkaConnector[V](private val connectConfig: util.Map[String, Object], pri
     consumer.subscribe(
       List(fromTopic).asJava,
       new NoOpConsumerRebalanceListener)
-
+    LOG.info("subscribed to {}",fromTopic)
     thread = new Thread(this)
     thread.start()
   }
@@ -49,17 +53,19 @@ class KafkaConnector[V](private val connectConfig: util.Map[String, Object], pri
   }
 
   def run(): Unit = {
+    LOG.info("Started polling for data.")
     while (true) {
       val records = consumer.poll(10000).asScala
 
       if (stopThread.get()) {
         consumer.close()
         stopThread.set(false)
+        LOG.info("Stopped polling for data.")
         return
       }
 
       records.foreach(record => {
-        //val signal = new K(record.key(), record.value())
+        LOG.debug("Received data with key {} and value {}", record.key(), record.value())
         subject.onNext(record)
       })
     }
