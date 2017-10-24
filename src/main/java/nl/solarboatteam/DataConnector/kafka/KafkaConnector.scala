@@ -15,12 +15,10 @@ import org.apache.kafka.common.serialization.{Deserializer, Serializer, StringDe
 
 import scala.collection.JavaConverters._
 
-class KafkaConnector[V](private val connectConfig: util.Map[String, Object], private val client: String, serializer: Serializer[V], deserializer: Deserializer[V]) extends Runnable {
+class KafkaConnector[V](private val connectConfig: util.Map[String, Object], private val client: String, serializer: Serializer[V], deserializer: Deserializer[V], private val fromTopic: String, private val toTopic: String) extends Runnable {
   private val consumer = new KafkaConsumer[String, V](connectConfig, new StringDeserializer, deserializer)
   private val producer = new KafkaProducer[String, V](connectConfig, new StringSerializer, serializer)
   private val subject = PublishSubject.create[ConsumerRecord[String, V]]()
-  private val fromTopic = TopicHelper.getFromJsonTopic(client)
-  private val toTopic = TopicHelper.getToJsonTopic(client)
   private var thread: Thread = _
   private var stopThread = new AtomicBoolean(false)
 

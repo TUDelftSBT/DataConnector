@@ -1,23 +1,21 @@
 package nl.solarboatteam.DataConnector.kafka
 
 object TopicHelper {
-
-
-
-  def topicToSender(topic : String) : String = {
-    topic.split("/")(1)
+  def getFromCanTopic(client: String) = {
+    "from/"+client+"/CAN/"
   }
 
-  def topicToSignalName(topic : String) : String = {
-    topic.split("/")(3)
+  def getToCanTopic(client: String) = {
+    "to/"+client+"/CAN/"
   }
 
-  def getFromJsonTopic(senderName: String) : String = {
-    "from/"+senderName+"/JSON/"
+
+  def getFromJsonTopic(client: String) : String = {
+    "from/"+client+"/JSON/"
   }
 
-  def getToJsonTopic(senderName: String) : String = {
-    "to/"+senderName+"/JSON/"
+  def getToJsonTopic(client: String) : String = {
+    "to/"+client+"/JSON/"
   }
 
 

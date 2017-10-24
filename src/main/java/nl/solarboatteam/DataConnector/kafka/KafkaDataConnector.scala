@@ -23,7 +23,10 @@ class KafkaDataConnector(private val connectConfig : util.Map[String, Object], p
 
     )((timestamp: Instant, value: Double)=> new Data(timestamp, value), data => (data.getTimestamp,data.getValue))
 
-  private val kafkaConnector = new KafkaConnector[Data](connectConfig, client, new JsonSerializer[Data](), new JsonDeserializer[Data]())
+  private val fromTopic = TopicHelper.getFromJsonTopic(client)
+  private val toTopic = TopicHelper.getToJsonTopic(client)
+
+  private val kafkaConnector = new KafkaConnector[Data](connectConfig, client, new JsonSerializer[Data](), new JsonDeserializer[Data](), fromTopic, toTopic)
   override def start(): Unit = kafkaConnector.start()
 
   override def getObservable(signals: util.List[String]): Observable[SignalUpdate] = {

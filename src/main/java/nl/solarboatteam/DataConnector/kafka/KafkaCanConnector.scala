@@ -9,7 +9,9 @@ import nl.solarboatteam.DataConnector.kafka.serialization.{CanDeserializer, CanS
 
 
 class KafkaCanConnector(private val connectConfig : util.Map[String, Object], private val client : String) extends CanConnector{
-  private val kafkaConnector = new KafkaConnector[CanMessage](connectConfig, client, new CanSerializer(), new CanDeserializer())
+  private val fromTopic = TopicHelper.getFromCanTopic(client)
+  private val toTopic = TopicHelper.getToCanTopic(client)
+  private val kafkaConnector = new KafkaConnector[CanMessage](connectConfig, client, new CanSerializer(), new CanDeserializer(), fromTopic, toTopic)
   override def start(): Unit = kafkaConnector.start()
 
 
