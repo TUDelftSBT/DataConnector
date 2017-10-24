@@ -6,6 +6,9 @@ import nl.solarboatteam.DataConnector.models.data.SignalUpdate;
 
 import java.util.List;
 
+/**
+ * Connector that sends and receives CanMessages
+ */
 public interface CanConnector {
 
     void start();

@@ -1,11 +1,11 @@
 package nl.solarboatteam.DataConnector.kafka
 
 object TopicHelper {
-  def getFromCanTopic(client: String) = {
+  def getFromCanTopic(client: String): String = {
     "from/"+client+"/CAN/"
   }
 
-  def getToCanTopic(client: String) = {
+  def getToCanTopic(client: String): String = {
     "to/"+client+"/CAN/"
   }
 

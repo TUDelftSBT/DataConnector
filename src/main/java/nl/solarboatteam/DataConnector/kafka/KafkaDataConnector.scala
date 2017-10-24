@@ -13,6 +13,12 @@ import play.api.libs.functional.syntax._
 
 import scala.collection.JavaConverters._
 
+/**
+  * Do not instantiate this class directly.
+  * Use @see nl.solarboatteam.ConnectorFactory#createDataConnector instead.
+  * @param connectConfig the connection config
+  * @param client the client to subscribe to e.g. boat_2017
+  */
 class KafkaDataConnector(private val connectConfig : util.Map[String, Object], private val client : String) extends DataConnector {
 
   // play json scala magic :)
