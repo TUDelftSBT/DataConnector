@@ -2,20 +2,20 @@ package nl.solarboatteam.DataConnector.kafka
 
 object TopicHelper {
   def getFromCanTopic(client: String): String = {
-    "from/"+client+"/CAN/"
+    "from-"+client+"-CAN"
   }
 
   def getToCanTopic(client: String): String = {
-    "to/"+client+"/CAN/"
+    "to-"+client+"-CAN"
   }
 
 
   def getFromJsonTopic(client: String) : String = {
-    "from/"+client+"/JSON/"
+    "from-"+client+"-JSON"
   }
 
   def getToJsonTopic(client: String) : String = {
-    "to/"+client+"/JSON/"
+    "to-"+client+"-JSON"
   }
 
 
