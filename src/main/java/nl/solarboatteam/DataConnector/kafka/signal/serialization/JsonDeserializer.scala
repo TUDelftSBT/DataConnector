@@ -1,4 +1,4 @@
-package nl.solarboatteam.DataConnector.kafka.serialization
+package nl.solarboatteam.DataConnector.kafka.signal.serialization
 
 import java.util
 

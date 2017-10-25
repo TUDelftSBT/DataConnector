@@ -1,4 +1,4 @@
-package nl.solarboatteam.DataConnector.kafka.serialization;
+package nl.solarboatteam.DataConnector.kafka.can.serialization;
 
 
 import nl.solarboatteam.DataConnector.models.can.CanMessage;
