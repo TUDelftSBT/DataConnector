@@ -3,11 +3,6 @@
 # Usage
 
 ```java
-import nl.solarboatteam.DataConnector.ConnectorFactory;
-import java.utils.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 Map<String,Object> config = new HashMap<String,Object>();
 config.put("bootstrap.servers", "localhost:9092");
 config.put("group.id", "application-name");
