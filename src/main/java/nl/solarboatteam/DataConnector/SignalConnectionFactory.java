@@ -4,6 +4,7 @@ import nl.solarboatteam.DataConnector.kafka.signal.SignalKafkaConnectionFactory;
 import nl.solarboatteam.DataConnector.models.ConnectionMode;
 import nl.solarboatteam.DataConnector.models.data.SignalUpdate;
 
+import java.util.List;
 import java.util.Map;
 
 public interface SignalConnectionFactory {
@@ -16,6 +17,17 @@ public interface SignalConnectionFactory {
      * @return
      */
     Consumer<SignalUpdate> getConsumer(Map<String, Object> connectConfig, ConnectionMode mode, String client, String signal);
+
+
+    /**
+     * Get a consumer that listens for a specific client and a list of signals
+     * @param connectConfig the connection config
+     * @param mode the connection mode
+     * @param client the client to listen for
+     * @param signal the signals to listen for
+     * @return
+     */
+    Consumer<SignalUpdate> getConsumer(Map<String, Object> connectConfig, ConnectionMode mode, String client, List<String> signal);
 
     /**
      * Get a consumer that listens for a specific client and for all signals

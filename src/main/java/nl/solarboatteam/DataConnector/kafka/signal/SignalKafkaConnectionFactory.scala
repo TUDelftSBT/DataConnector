@@ -13,6 +13,7 @@ import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.common.serialization.{StringDeserializer, StringSerializer}
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{Format, __}
+import scala.collection.JavaConverters._
 
 import scala.collection.mutable
 
@@ -53,6 +54,13 @@ class SignalKafkaConnectionFactory extends SignalConnectionFactory {
     consumer.subscribe(TopicHelper.getJsonTopic(mode, client, signal))
     consumer
   }
+
+  override def getConsumer(connectConfig: util.Map[String, AnyRef], mode: ConnectionMode, client: String, signals: util.List[String]): Consumer[SignalUpdate] = {
+    val consumer = getConsumer(connectConfig)
+    consumer.subscribe(TopicHelper.getJsonTopics(mode, client, signals.asScala.toList))
+    consumer
+  }
+
 
   def getConsumer(connectConfig: util.Map[String, Object], mode:ConnectionMode, client: String): Consumer[SignalUpdate] = {
     val consumer = getConsumer(connectConfig)
