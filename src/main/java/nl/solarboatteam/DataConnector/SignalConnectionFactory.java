@@ -50,10 +50,9 @@ public interface SignalConnectionFactory {
      * Get a producer that is able to send SignalUpdates
      * @param connectConfig the conection config
      * @param mode the connection mode
-     * @param client the client to send to
      * @return
      */
-    Producer<SignalUpdate> getProducer(Map<String, Object> connectConfig, ConnectionMode mode, String client);
+    Producer<SignalUpdate> getProducer(Map<String, Object> connectConfig, ConnectionMode mode);
 
     static SignalConnectionFactory getFactory() {
         return new SignalKafkaConnectionFactory();

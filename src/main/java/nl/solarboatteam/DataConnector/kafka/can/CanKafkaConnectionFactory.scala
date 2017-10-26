@@ -3,7 +3,7 @@ package nl.solarboatteam.DataConnector.kafka.can
 import java.util
 
 import nl.solarboatteam.DataConnector.kafka.can.serialization.{CanDeserializer, CanSerializer}
-import nl.solarboatteam.DataConnector.kafka.TopicHelper
+import nl.solarboatteam.DataConnector.kafka.{MessageType, Topic}
 import nl.solarboatteam.DataConnector.models.ConnectionMode
 import nl.solarboatteam.DataConnector.models.can.CanMessage
 import nl.solarboatteam.DataConnector.{CanConnectionFactory, Consumer, Producer}
@@ -37,19 +37,19 @@ class CanKafkaConnectionFactory extends CanConnectionFactory{
 
   def getConsumer(connectConfig: util.Map[String, Object], mode:ConnectionMode, client: String): Consumer[CanMessage] = {
     val consumer = getConsumer(connectConfig)
-    consumer.subscribe(TopicHelper.getCanTopic(mode, client))
+    consumer.subscribe(Topic(mode, MessageType.CAN, Some(client)))
     consumer
   }
 
   def getConsumer(connectConfig: util.Map[String, Object], mode:ConnectionMode): Consumer[CanMessage] = {
     val consumer = getConsumer(connectConfig)
-    consumer.subscribe(TopicHelper.getCanTopic(mode))
+    consumer.subscribe(Topic(mode, MessageType.CAN))
     consumer
   }
 
-  def getProducer(connectConfig: util.Map[String, Object], mode : ConnectionMode, client : String): Producer[CanMessage] = {
+  def getProducer(connectConfig: util.Map[String, Object], mode : ConnectionMode): Producer[CanMessage] = {
     val kafkaProducer = new KafkaProducer[String, CanMessage](connectConfig, new StringSerializer(), serializer)
-    val topic = TopicHelper.getCanTopic(mode, client)
+    val topic = Topic(mode, MessageType.CAN)
     new CanProducer(topic, kafkaProducer)
   }
 }

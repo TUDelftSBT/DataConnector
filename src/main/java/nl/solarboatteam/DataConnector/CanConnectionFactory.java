@@ -32,7 +32,7 @@ public interface CanConnectionFactory {
      * @param client the client to send to
      * @return
      */
-    Producer<CanMessage> getProducer(Map<String, Object> connectConfig, ConnectionMode mode, String client);
+    Producer<CanMessage> getProducer(Map<String, Object> connectConfig, ConnectionMode mode);
 
     static CanConnectionFactory getFactory() {
         return new CanKafkaConnectionFactory();
