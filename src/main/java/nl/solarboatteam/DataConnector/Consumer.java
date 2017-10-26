@@ -1,7 +1,7 @@
 package nl.solarboatteam.DataConnector;
 
-import io.reactivex.Observable;
 import nl.solarboatteam.DataConnector.models.Update;
+import rx.Observable;
 
 public interface Consumer<V> {
 

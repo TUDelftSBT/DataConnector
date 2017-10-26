@@ -3,11 +3,11 @@ package nl.solarboatteam.DataConnector.kafka
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.regex.Pattern
 
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
 import org.apache.kafka.clients.consumer.internals.NoOpConsumerRebalanceListener
 import org.apache.kafka.clients.consumer.{ConsumerRecord, KafkaConsumer}
 import org.slf4j.{Logger, LoggerFactory}
+import rx.Observable
+import rx.subjects.PublishSubject
 
 import scala.collection.JavaConverters._
 

@@ -1,11 +1,11 @@
 package nl.solarboatteam.DataConnector.kafka.can
 
-import io.reactivex.Observable
 import nl.solarboatteam.DataConnector.Consumer
 import nl.solarboatteam.DataConnector.kafka.{AbstractConsumer, Topic}
 import nl.solarboatteam.DataConnector.models.Update
 import nl.solarboatteam.DataConnector.models.can.CanMessage
 import org.apache.kafka.clients.consumer.{KafkaConsumer => RealKafkaConsumer}
+import rx.Observable
 
 class CanConsumer(val consumer : RealKafkaConsumer[String,CanMessage]) extends Consumer[CanMessage]{
   val innerConsumer = new AbstractConsumer[CanMessage](consumer)

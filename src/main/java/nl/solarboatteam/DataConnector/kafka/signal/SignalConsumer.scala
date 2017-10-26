@@ -1,12 +1,12 @@
 package nl.solarboatteam.DataConnector.kafka.signal
 
 
-import io.reactivex.Observable
 import nl.solarboatteam.DataConnector.Consumer
 import nl.solarboatteam.DataConnector.kafka.{AbstractConsumer, Topic}
 import nl.solarboatteam.DataConnector.models.Update
 import nl.solarboatteam.DataConnector.models.data.{Data, SignalUpdate}
 import org.apache.kafka.clients.consumer.{KafkaConsumer => RealKafkaConsumer}
+import rx.Observable
 
 
 class SignalConsumer(val consumer : RealKafkaConsumer[String,Data]) extends  Consumer[SignalUpdate]{
