@@ -3,6 +3,7 @@ package nl.solarboatteam.DataConnector.kafka.can.serialization;
 import nl.solarboatteam.DataConnector.models.can.CanMessage;
 import org.apache.kafka.common.serialization.Serializer;
 
+import java.nio.ByteBuffer;
 import java.util.Map;
 
 public class CanSerializer implements Serializer<CanMessage> {
@@ -13,8 +14,12 @@ public class CanSerializer implements Serializer<CanMessage> {
 
     @Override
     public byte[] serialize(String topic, CanMessage data) {
-        //CanMessage to bytes
-        return new byte[0];
+        ByteBuffer buffer = ByteBuffer.allocate(21);
+
+        buffer.putLong(data.getTimestamp().toEpochMilli());
+        buffer.putInt(data.getId()|0x80000000);
+        buffer.put(data.getData());
+        return buffer.array();
     }
 
     @Override
