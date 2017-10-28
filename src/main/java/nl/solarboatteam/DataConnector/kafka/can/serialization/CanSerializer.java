@@ -14,8 +14,9 @@ public class CanSerializer implements Serializer<CanMessage> {
 
     @Override
     public byte[] serialize(String topic, CanMessage data) {
-        ByteBuffer buffer = ByteBuffer.allocate(21);
-
+        ByteBuffer buffer = ByteBuffer.allocate(22);
+        // D means CanDataFrame
+        buffer.put((byte)'D');
         buffer.putLong(data.getTimestamp().toEpochMilli());
         buffer.putInt(data.getId()|0x80000000);
         buffer.put(data.getData());

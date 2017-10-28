@@ -15,7 +15,16 @@ public class CanDeserializer implements Deserializer<CanMessage> {
 
     @Override
     public CanMessage deserialize(String topic, byte[] data) {
+        if(data == null) {
+            return null;
+        }
         ByteBuffer buffer = ByteBuffer.wrap(data);
+
+        char dataType = (char) buffer.get();
+        if(dataType != 'D') {
+            //this is not a CanDataFrame, so let's ignore it.
+            return null;
+        }
 
         long ms = buffer.getLong();
         Instant time = Instant.ofEpochMilli(ms);
