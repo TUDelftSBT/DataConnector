@@ -5,7 +5,7 @@ import java.util
 import org.apache.kafka.common.serialization.{Deserializer, StringDeserializer}
 import play.api.libs.json.{Format, Json}
 
-class JsonDeserializer[K](implicit format : Format[K]) extends Deserializer[K] {
+class JsonDeserializer[K >: Null](implicit format : Format[K]) extends Deserializer[K] {
   private val stringDeserializer = new StringDeserializer()
 
   override def configure(configs: util.Map[String, _], isKey: Boolean): Unit = {
@@ -18,6 +18,9 @@ class JsonDeserializer[K](implicit format : Format[K]) extends Deserializer[K] {
 
   override def deserialize(topic: String, data: Array[Byte]): K = {
     val str = stringDeserializer.deserialize(topic, data)
+    if(str == null) {
+      return null
+    }
     Json.fromJson[K](Json.parse(str)).get
   }
 }
