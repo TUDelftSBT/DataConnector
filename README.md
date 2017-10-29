@@ -21,9 +21,9 @@ add
 and
 ```
 <dependency>
-    <groupId>com.github.TUDelftSBT</groupId>
-    <artifactId>DataConnector</artifactId>
-    <version>master-SNAPSHOT</version>
+	<groupId>com.github.TUDelftSBT</groupId>
+	<artifactId>DataConnector</artifactId>
+	<version>master-SNAPSHOT</version>
 </dependency>
 ```
 to your buildfile.
@@ -31,11 +31,11 @@ to your buildfile.
 ## SBT
 add to your build.sbt file:
 ```
-    resolvers += "jitpack" at "https://jitpack.io"
+resolvers += "jitpack" at "https://jitpack.io"
 ```
 and
 ```
-    libraryDependencies += "com.github.TUDelftSBT" % "DataConnector" % "master-SNAPSHOT"
+libraryDependencies += "com.github.TUDelftSBT" % "DataConnector" % "master-SNAPSHOT"
 
 ```
 # Example
