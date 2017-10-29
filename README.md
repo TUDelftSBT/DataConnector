@@ -1,4 +1,5 @@
 [![Release](https://jitpack.io/v/TUDelftSBT/DataConnector.svg)](https://jitpack.io/#TUDelftSBT/DataConnector)
+[![Build Status](https://travis-ci.org/TUDelftSBT/DataConnector.svg?branch=master)](https://travis-ci.org/TUDelftSBT/DataConnector)
 # About this library
 This library allows applications to receive and send CAN messages or signal updates from and to boats (or other client) using [Apache Kafka](https://kafka.apache.org).
 The interface this library exposes is intentionally Kafka agnostic.
