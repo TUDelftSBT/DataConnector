@@ -12,19 +12,19 @@ interfaces instead of the Kafka specific implementations.
 add 
 ```
 <repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+	<repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	</repository>
+</repositories>
 ```
 and
 ```
 <dependency>
-	    <groupId>com.github.TUDelftSBT</groupId>
-	    <artifactId>DataConnector</artifactId>
-	    <version>master-SNAPSHOT</version>
-	</dependency>
+    <groupId>com.github.TUDelftSBT</groupId>
+    <artifactId>DataConnector</artifactId>
+    <version>master-SNAPSHOT</version>
+</dependency>
 ```
 to your buildfile.
 
