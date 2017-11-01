@@ -48,7 +48,7 @@ public interface SignalConnectionFactory {
 
     /**
      * Get a producer that is able to send SignalUpdates
-     * @param connectConfig the conection config
+     * @param connectConfig the connection config
      * @param mode the connection mode
      * @return
      */
