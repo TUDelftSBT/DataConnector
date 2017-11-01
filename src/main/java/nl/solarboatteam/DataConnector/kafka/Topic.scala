@@ -30,7 +30,7 @@ case class Topic(mode : ConnectionMode, msgType: MessageType, client : Option[St
         List(Some(getModeStr(mode)),client,Some(msgType.toString), signal)
 
       if(list.contains(None))
-        Right(Pattern.compile(list.map(_.getOrElse(".*")).mkString(Topic.separator)))
+        Right(Pattern.compile(list.map(_.getOrElse(".*")).mkString("\\"+Topic.separator)))
       else
         Left(list.map(_.get).mkString(Topic.separator))
   }
@@ -41,7 +41,7 @@ object Topic {
   private def getMode(mode : String): ConnectionMode = if (mode == "from") ConnectionMode.FROM_CLIENT else ConnectionMode.TO_CLIENT
 
   def fromString(topic : String) : Topic = {
-    val splitted = topic.split("//"+separator).lift
+    val splitted = topic.split("\\"+separator).lift
 
     Topic(getMode(splitted(0).get), MessageType.withName(splitted(2).get), splitted(1), splitted(3))
   }

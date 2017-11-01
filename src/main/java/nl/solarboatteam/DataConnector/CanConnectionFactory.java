@@ -29,7 +29,6 @@ public interface CanConnectionFactory {
      * Get a producer that is able to send CanMessages
      * @param connectConfig the conection config
      * @param mode the connection mode
-     * @param client the client to send to
      * @return
      */
     Producer<CanMessage> getProducer(Map<String, Object> connectConfig, ConnectionMode mode);

@@ -12,5 +12,6 @@ libraryDependencies += "io.reactivex" % "rxjava" % "1.2.4"
 
 libraryDependencies += "org.slf4j" % "slf4j-api" % "1.7.25"
 
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
 javacOptions in (Compile,doc) ++= Seq("-notimestamp", "-linksource")
