@@ -14,7 +14,7 @@ class TopicTest extends FlatSpec  {
     assert(!testPattern.asPredicate().test("from-boat_2016.JSON.gps"))
   }
 
-  "Topic to.boat_2017.CAN " should " should result in the right topic when usin fromString" in {
+  "Topic to.boat_2017.CAN " should " should result in the right topic when using fromString" in {
     val topic = Topic.fromString("to.boat_2017.CAN")
     assert(topic == Topic(ConnectionMode.TO_CLIENT, MessageType.CAN, Some("boat_2017")))
   }
