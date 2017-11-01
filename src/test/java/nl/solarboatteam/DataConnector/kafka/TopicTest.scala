@@ -29,4 +29,9 @@ class TopicTest extends FlatSpec  {
     assert(topic.get.left.get == "from.boat_2014.JSON.gps")
   }
 
+  "Topic.get on CAN topic without signal " should " result in a string" in {
+    val topic = Topic(ConnectionMode.FROM_CLIENT, MessageType.CAN, Some("boat_2014"))
+    assert(topic.get.left.get == "from.boat_2014.CAN")
+  }
+
 }
