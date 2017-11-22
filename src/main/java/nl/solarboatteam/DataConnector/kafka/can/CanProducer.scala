@@ -9,7 +9,7 @@ class CanProducer(toTopic : Topic, producer : KafkaProducer[String, CanMessage])
 
   override def send(client : String, msg: CanMessage): Unit = {
     val curTopic = toTopic.copy(client = Some(client))
-    val newRecord = new ProducerRecord[String, CanMessage](toTopic.get.left.get, null, msg)
+    val newRecord = new ProducerRecord[String, CanMessage](curTopic.get.left.get, null, msg)
     producer.send(newRecord)
   }
 }
