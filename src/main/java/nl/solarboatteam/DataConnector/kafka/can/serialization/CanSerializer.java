@@ -19,6 +19,7 @@ public class CanSerializer implements Serializer<CanMessage> {
         buffer.put((byte)'D');
         buffer.putLong(data.getTimestamp().toEpochMilli());
         buffer.putInt(data.getId()|0x80000000);
+        buffer.put((byte) data.getData().length);
         buffer.put(data.getData());
         return buffer.array();
     }

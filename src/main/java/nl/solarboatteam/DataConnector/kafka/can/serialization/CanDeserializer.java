@@ -29,8 +29,9 @@ public class CanDeserializer implements Deserializer<CanMessage> {
         long ms = buffer.getLong();
         Instant time = Instant.ofEpochMilli(ms);
         int id = buffer.getInt() & 0x7fffffff;
-
-        byte[] innerData = new byte[9];
+        //ignore the DLC
+        buffer.get();
+        byte[] innerData = new byte[8];
         buffer.get(innerData);
         return new CanMessage(id, innerData, time);
     }
