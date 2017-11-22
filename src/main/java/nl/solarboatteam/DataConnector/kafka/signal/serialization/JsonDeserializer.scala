@@ -21,6 +21,11 @@ class JsonDeserializer[K >: Null](implicit format : Format[K]) extends Deseriali
     if(str == null) {
       return null
     }
-    Json.fromJson[K](Json.parse(str)).get
+    try {
+      Json.fromJson[K](Json.parse(str)).get
+    }
+    catch {
+     case e => return null
+   }
   }
 }
