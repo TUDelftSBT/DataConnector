@@ -9,7 +9,7 @@ class SignalProducer(topic : Topic, producer : KafkaProducer[String, Data]) exte
 
   override def send(client: String, signalUpdate: SignalUpdate): Unit = {
     val curTopic = topic.copy(client = Some(client)).copy(signal = Some(signalUpdate.getSignal))
-    val newRecord = new ProducerRecord[String, Data](topic.get.left.get, null, signalUpdate.getData)
+    val newRecord = new ProducerRecord[String, Data](curTopic.get.left.get, null, signalUpdate.getData)
     producer.send(newRecord)
   }
 }
