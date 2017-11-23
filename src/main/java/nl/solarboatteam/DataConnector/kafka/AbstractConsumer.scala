@@ -47,7 +47,7 @@ class AbstractConsumer[V](private val consumer : KafkaConsumer[String,V])
   }
   
   def getObservable: Observable[ConsumerRecord[String, V]] = {
-    subject
+    subject.filter(x => x.value() != null)
   }
 
   def stop(): Unit = {
