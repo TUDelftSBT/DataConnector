@@ -29,7 +29,7 @@ class JsonDeserializer[K >: Null](implicit format : Format[K]) extends Deseriali
     }
     catch {
      case e: Throwable =>
-       LOG.warn(s"Could not serialize message $str from topic $topic")
+       LOG.warn(s"Could not serialize message $str from topic $topic", e)
        null
     }
   }
