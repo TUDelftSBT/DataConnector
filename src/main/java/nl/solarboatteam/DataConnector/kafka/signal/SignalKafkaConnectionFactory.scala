@@ -29,7 +29,6 @@ class SignalKafkaConnectionFactory extends SignalConnectionFactory {
 
   private val serializer = new JsonSerializer[Data]()
   private val deserializer = new JsonDeserializer[Data]()
-  private val groupIds = new mutable.HashSet[String]()
 
 
   private def getConsumer(connectConfig: util.Map[String, Object]) : SignalConsumer = {
@@ -37,12 +36,6 @@ class SignalKafkaConnectionFactory extends SignalConnectionFactory {
     if(groupId == null || !groupId.isInstanceOf[String]) {
       throw new RuntimeException("You have not submitted a valid group.id field.")
     }
-    val groupIdString = groupId.asInstanceOf[String]
-
-    if(groupIds.contains(groupIdString)){
-      throw new RuntimeException("You have already used this group.id. Please reuse the observable or use a new group.id.")
-    }
-    groupIds.add(groupIdString)
 
     val kafkaConsumer = new KafkaConsumer[String, Data](connectConfig,new StringDeserializer(), deserializer)
     val consumer = new SignalConsumer(kafkaConsumer)

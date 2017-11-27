@@ -17,19 +17,12 @@ import scala.collection.mutable
 class CanKafkaConnectionFactory extends CanConnectionFactory{
   private val serializer = new CanSerializer()
   private val deserializer = new CanDeserializer()
-  private val groupIds = new mutable.HashSet[String]()
 
   private def getConsumer(connectConfig: util.Map[String, Object]): CanConsumer = {
     val groupId = connectConfig.get("group.id")
     if(groupId == null || !groupId.isInstanceOf[String]) {
       throw new RuntimeException("You have not submitted a valid group.id field.")
     }
-    val groupIdString = groupId.asInstanceOf[String]
-
-    if(groupIds.contains(groupIdString)){
-      throw new RuntimeException("You have already used this group.id. Please reuse the observable or use a new group.id.")
-    }
-    groupIds.add(groupIdString)
 
     val kafkaConsumer = new RealKafkaConsumer[String, CanMessage](connectConfig, new StringDeserializer(), deserializer)
     new CanConsumer(kafkaConsumer)
