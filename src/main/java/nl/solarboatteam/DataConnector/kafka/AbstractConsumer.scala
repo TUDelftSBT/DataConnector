@@ -37,8 +37,8 @@ class AbstractConsumer[V](private val consumer : KafkaConsumer[String,V])
   }
 
   def start(): Unit = {
-    if (thread != null && thread.isAlive) {
-      throw new RuntimeException("KafkaConnector was already started.")
+    if (thread != null) {
+      throw new RuntimeException("Consumer was already started.")
     }
 
 
@@ -59,17 +59,20 @@ class AbstractConsumer[V](private val consumer : KafkaConsumer[String,V])
     while (true) {
       val records = consumer.poll(10000).asScala
 
-      if (stopThread.get()) {
-        consumer.close()
-        stopThread.set(false)
-        LOG.info("Stopped polling for data.")
-        return
-      }
-
       records.foreach(record => {
         LOG.debug("Received data with key {} and value {}", record.key(), record.value())
         subject.onNext(record)
       })
+
+
+      if (stopThread.get()) {
+        consumer.close()
+        stopThread.set(false)
+        subject.onCompleted()
+        LOG.info("Stopped polling for data.")
+        return
+      }
+
     }
   }
 }
