@@ -18,7 +18,7 @@ public class CanSerializer implements Serializer<CanMessage> {
         // D means CanDataFrame
         buffer.put((byte)'D');
         buffer.putLong(data.getTimestamp().toEpochMilli());
-        buffer.putInt(data.getId()|0x80000000);
+        buffer.putInt(data.getId());
         buffer.put((byte) data.getData().length);
         buffer.put(data.getData());
         return buffer.array();
