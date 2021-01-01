@@ -4,7 +4,7 @@ public interface Producer<T> {
 
     /**
      * Send a T to a client
-     * @parmam client the client to send to or from
+     * @param client the client to send to or from
      * @param msg the message to send
      */
     void send(String client, T msg);
